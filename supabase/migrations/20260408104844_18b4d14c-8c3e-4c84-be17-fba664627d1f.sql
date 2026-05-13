@@ -1,0 +1,1 @@
+ALTER TABLE public.incidencias_records ADD COLUMN IF NOT EXISTS firmada boolean NOT NULL DEFAULT true;

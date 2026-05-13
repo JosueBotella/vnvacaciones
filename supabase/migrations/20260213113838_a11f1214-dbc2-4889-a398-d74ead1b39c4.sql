@@ -1,0 +1,2 @@
+ALTER PUBLICATION supabase_realtime ADD TABLE public.incidencias_records;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.incidencias_propuestas_rrhh;

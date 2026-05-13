@@ -1,0 +1,1 @@
+ALTER TABLE public.applications ADD COLUMN IF NOT EXISTS has_disability boolean NOT NULL DEFAULT false;

@@ -1,0 +1,1 @@
+ALTER TABLE public.incidencias_records ADD COLUMN custom_category_name text DEFAULT NULL;

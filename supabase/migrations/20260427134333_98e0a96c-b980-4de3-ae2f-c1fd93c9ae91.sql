@@ -1,0 +1,1 @@
+ALTER TABLE public.incidencias_legal_documents ADD COLUMN IF NOT EXISTS draft_pdf_url TEXT;

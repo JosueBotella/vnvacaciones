@@ -1,0 +1,1 @@
+ALTER TABLE public.justificantes ADD COLUMN archivos_adicionales JSONB DEFAULT '[]'::jsonb;

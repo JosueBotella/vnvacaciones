@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="/images/verdnatura-logo-green.png" />
+    <title>Panel Producción - Verdnatura</title>
+    <meta name="description" content="Herramientas y aplicaciones para el equipo de Producción de Verdnatura" />
+    <meta name="author" content="Verdnatura" />
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="Panel Producción - Verdnatura" />
+    <meta property="og:description" content="Herramientas y aplicaciones para el equipo de Producción" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Lovable" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script>
+      // v5 - Force unregister all service workers and clear caches
+      (function(){
+        var VER = 'v5';
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(regs) {
+            regs.forEach(function(r) { r.unregister(); });
+            return caches.keys();
+          }).then(function(names) {
+            return Promise.all(names.map(function(n) { return caches.delete(n); }));
+          }).then(function() {
+            if (sessionStorage.getItem('sw_ver') !== VER) {
+              sessionStorage.setItem('sw_ver', VER);
+              location.reload();
+            }
+          });
+        }
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

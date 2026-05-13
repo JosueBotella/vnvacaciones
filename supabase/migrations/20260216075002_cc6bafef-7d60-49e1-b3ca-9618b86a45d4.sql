@@ -1,0 +1,1 @@
+ALTER TABLE public.managers ADD COLUMN setup_token TEXT;

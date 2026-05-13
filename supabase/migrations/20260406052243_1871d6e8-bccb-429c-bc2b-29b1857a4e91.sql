@@ -1,0 +1,1 @@
+ALTER TABLE public.departments ADD COLUMN schedule_auto_rotate_teams BOOLEAN NOT NULL DEFAULT false;

@@ -1,0 +1,480 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Verdnatura Design System - Light Mode */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 20%;
+
+    /* Verde Verdnatura #93d600 - hsl(84, 100%, 42%) */
+    --primary: 84 100% 42%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 84 100% 38%;
+    
+    /* Grises para elegancia */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 20%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 84 80% 95%;
+    --accent-foreground: 84 100% 38%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Calendar specific colors */
+    --calendar-available: 84 60% 85%;
+    --calendar-available-foreground: 84 100% 25%;
+    --calendar-selected: 84 100% 42%;
+    --calendar-selected-foreground: 0 0% 100%;
+    --calendar-half-day: 45 100% 60%;
+    --calendar-half-day-foreground: 45 100% 20%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 92%;
+    --ring: 84 100% 42%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 84 100% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 84 100% 42%;
+  }
+
+  .dark {
+    /* Verdnatura Design System - Dark Mode */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Verde Verdnatura en modo oscuro */
+    --primary: 84 100% 42%;
+    --primary-foreground: 0 0% 8%;
+    --primary-hover: 84 100% 48%;
+
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 84 30% 15%;
+    --accent-foreground: 84 100% 50%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Calendar specific colors - Dark Mode */
+    --calendar-available: 84 40% 25%;
+    --calendar-available-foreground: 84 100% 70%;
+    --calendar-selected: 84 100% 42%;
+    --calendar-selected-foreground: 0 0% 8%;
+    --calendar-half-day: 45 80% 45%;
+    --calendar-half-day-foreground: 45 100% 90%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 18%;
+    --ring: 84 100% 42%;
+    
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 84 100% 42%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 84 100% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    min-height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Subtle native scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.15) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.15);
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.3);
+  }
+}
+
+/* Glass Header - unified glassmorphism style for all page headers */
+@layer components {
+  .glass-header {
+    @apply sticky z-40 mx-auto;
+    position: sticky;
+    overflow: hidden;
+    isolation: isolate;
+    top: calc(env(safe-area-inset-top) + 0.5rem);
+    max-width: 80rem;
+    background: hsl(var(--card) / 0.9);
+    border: 1px solid hsl(var(--border) / 0.32);
+    border-radius: 9999px;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100% - 1.5rem);
+    box-shadow: 
+      0 10px 30px hsl(var(--foreground) / 0.06),
+      0 1px 2px hsl(var(--foreground) / 0.03),
+      inset 0 1px 0 hsl(var(--background) / 0.28);
+  }
+
+  .glass-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, hsl(var(--background) / 0.22), hsl(var(--background) / 0.06));
+  }
+
+  .glass-header > * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .dark .glass-header {
+    background: hsl(var(--card) / 0.62);
+    border-color: hsl(var(--border) / 0.16);
+    box-shadow: 
+      0 12px 36px hsl(0 0% 0% / 0.34),
+      inset 0 1px 0 hsl(var(--foreground) / 0.06);
+  }
+
+  @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .glass-header {
+      background: linear-gradient(180deg, hsl(var(--background) / 0.62), hsl(var(--card) / 0.42));
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      backdrop-filter: blur(24px) saturate(1.8);
+    }
+
+    .dark .glass-header {
+      background: linear-gradient(180deg, hsl(var(--background) / 0.44), hsl(var(--card) / 0.28));
+      -webkit-backdrop-filter: blur(28px) saturate(1.9);
+      backdrop-filter: blur(28px) saturate(1.9);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .glass-header {
+      width: calc(100% - 2rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .glass-header {
+      width: calc(100% - 3rem);
+    }
+  }
+}
+
+/* Glass Bottom Nav - mirrors glass-header for mobile bottom navigation */
+@layer components {
+  .glass-bottom-nav {
+    overflow: hidden;
+    isolation: isolate;
+    background: hsl(var(--card) / 0.9);
+    border: 1px solid hsl(var(--border) / 0.32);
+    border-radius: 1rem;
+    box-shadow: 
+      0 -4px 24px hsl(var(--foreground) / 0.06),
+      0 1px 2px hsl(var(--foreground) / 0.03),
+      inset 0 1px 0 hsl(var(--background) / 0.28);
+  }
+
+  .glass-bottom-nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(0deg, hsl(var(--background) / 0.22), hsl(var(--background) / 0.06));
+  }
+
+  .glass-bottom-nav > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dark .glass-bottom-nav {
+    background: hsl(var(--card) / 0.62);
+    border-color: hsl(var(--border) / 0.16);
+    box-shadow: 
+      0 -6px 30px hsl(0 0% 0% / 0.34),
+      inset 0 1px 0 hsl(var(--foreground) / 0.06);
+  }
+
+  @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .glass-bottom-nav {
+      background: linear-gradient(0deg, hsl(var(--background) / 0.62), hsl(var(--card) / 0.42));
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      backdrop-filter: blur(24px) saturate(1.8);
+    }
+
+    .dark .glass-bottom-nav {
+      background: linear-gradient(0deg, hsl(var(--background) / 0.44), hsl(var(--card) / 0.28));
+      -webkit-backdrop-filter: blur(28px) saturate(1.9);
+      backdrop-filter: blur(28px) saturate(1.9);
+    }
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  /* Staggered animation delays */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+    animation-fill-mode: forwards;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+    animation-fill-mode: forwards;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+    animation-fill-mode: forwards;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+    animation-fill-mode: forwards;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+    animation-fill-mode: forwards;
+  }
+
+  /* Smooth transitions for interactive elements */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Hover scale effect */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:translate-y-0;
+  }
+
+  /* Card hover glow */
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-xl hover:shadow-primary/5;
+  }
+
+  /* Fade in up animation */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Fade in down animation */
+  .animate-fade-in-down {
+    animation: fadeInDown 0.4s ease-out forwards;
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.15s ease-out forwards;
+  }
+
+  /* Scale in animation */
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  /* Slide in from left */
+  .animate-slide-in-left {
+    animation: slideInLeft 0.4s ease-out forwards;
+  }
+
+  /* Slide in from right */
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s ease-out forwards;
+  }
+
+  /* Pulse soft animation */
+  .animate-pulse-soft {
+    animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Button press effect */
+  .btn-press {
+    @apply transition-all duration-150 active:scale-[0.97] active:shadow-inner;
+  }
+
+  /* Card interactive */
+  .card-interactive {
+    @apply transition-all duration-200 hover:shadow-lg hover:border-border active:scale-[0.99];
+  }
+
+  /* Content loaded transition - for replacing skeletons */
+  .content-loaded {
+    animation: contentReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Staggered content items */
+  .content-loaded-item {
+    animation: contentItemReveal 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes contentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentItemReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Hide native number input spinners for a cleaner look */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

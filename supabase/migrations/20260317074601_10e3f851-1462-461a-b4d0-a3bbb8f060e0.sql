@@ -1,0 +1,2 @@
+ALTER TABLE public.managers DROP CONSTRAINT managers_role_check;
+ALTER TABLE public.managers ADD CONSTRAINT managers_role_check CHECK (role = ANY (ARRAY['admin'::text, 'manager'::text, 'consulta'::text, 'responsable'::text]));

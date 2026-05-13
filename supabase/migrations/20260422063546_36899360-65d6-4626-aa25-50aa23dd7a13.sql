@@ -1,0 +1,1 @@
+ALTER TABLE public.incidencias_propuestas_rrhh ADD COLUMN IF NOT EXISTS nspp_worker_fiscal_id text;

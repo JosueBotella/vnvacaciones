@@ -1,0 +1,1 @@
+UPDATE public.managers SET parent_manager_id = '181db65b-6a73-4ae5-8cd1-3a98397de17f' WHERE id = '3c577415-9251-43d1-8a33-bfc1a4c7f8d6';

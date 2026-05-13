@@ -1,0 +1,1 @@
+ALTER TABLE public.incidencias_records ALTER COLUMN firmada SET DEFAULT false;

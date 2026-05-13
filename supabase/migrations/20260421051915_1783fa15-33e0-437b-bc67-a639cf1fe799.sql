@@ -1,0 +1,5 @@
+ALTER TABLE public.applications
+  ADD COLUMN IF NOT EXISTS languages JSONB DEFAULT '[]'::jsonb,
+  ADD COLUMN IF NOT EXISTS years_experience TEXT,
+  ADD COLUMN IF NOT EXISTS availability TEXT,
+  ADD COLUMN IF NOT EXISTS shifts TEXT[] DEFAULT ARRAY[]::TEXT[];

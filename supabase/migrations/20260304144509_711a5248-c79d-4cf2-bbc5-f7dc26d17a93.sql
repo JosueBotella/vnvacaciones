@@ -1,0 +1,1 @@
+ALTER TABLE public.worker_teams ADD COLUMN display_name text;

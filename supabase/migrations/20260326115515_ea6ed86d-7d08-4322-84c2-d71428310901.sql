@@ -1,0 +1,1 @@
+ALTER TABLE public.managers ADD COLUMN parent_manager_id uuid REFERENCES public.managers(id) ON DELETE SET NULL;

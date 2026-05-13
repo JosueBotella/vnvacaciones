@@ -1,0 +1,1 @@
+ALTER TABLE public.operativa_justificante_config ADD COLUMN IF NOT EXISTS primary_email text;

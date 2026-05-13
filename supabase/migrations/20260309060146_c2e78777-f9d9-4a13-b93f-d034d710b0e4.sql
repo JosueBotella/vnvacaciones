@@ -1,0 +1,2 @@
+ALTER TABLE public.workers ADD COLUMN IF NOT EXISTS worker_code text;
+CREATE UNIQUE INDEX IF NOT EXISTS workers_worker_code_unique ON public.workers (worker_code) WHERE worker_code IS NOT NULL AND deleted_at IS NULL;

@@ -1,0 +1,62 @@
+# =============================================================================
+# vnvacaciones — Frontend Docker Compose
+#
+# USO:
+#   Dev  (Vite HMR):  docker compose --profile dev up
+#   Prod (Nginx):     docker compose --profile prod up --build
+#
+# Variables requeridas en .env.local (dev) o .env.prod (prod):
+#   VITE_SUPABASE_URL
+#   VITE_SUPABASE_PUBLISHABLE_KEY
+#   VITE_SUPABASE_PROJECT_ID
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # DEV — Vite dev server con Hot Module Replacement
+  # El código fuente se monta como volumen → cambios instantáneos sin rebuild
+  # ---------------------------------------------------------------------------
+  frontend-dev:
+    profiles: [ dev ]
+    env_file:
+      - .env.local # <--- Especificas el fichero aquí
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: vnv_frontend_dev
+    restart: unless-stopped
+    ports:
+      - "${DEV_PORT:-8080}:8080"
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
+      - VITE_SUPABASE_PROJECT_ID=${VITE_SUPABASE_PROJECT_ID:-local}
+    volumes:
+      # Código fuente montado — HMR funciona
+      - .:/app
+      # node_modules en volumen anónimo — no se sobreescribe con el del host
+      - /app/node_modules
+    healthcheck:
+      test: [ "CMD", "wget", "-qO-", "http://localhost:8080" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Edge Functions (Supabase CLI)
+  # ---------------------------------------------------------------------------
+  functions:
+    profiles: [ dev ]
+    image: supabase/edge-runtime:v1.67.4
+    container_name: vnv_functions
+    restart: unless-stopped
+    volumes:
+      - ./supabase/functions:/home/deno/functions:ro
+      - ./.env.local:/home/deno/.env:ro
+    network_mode: host
+    environment:
+      - SUPABASE_URL=http://127.0.0.1:54321
+      - SUPABASE_ANON_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+    command: start --main-service /home/deno/functions/manager-auth
