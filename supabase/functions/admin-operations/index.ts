@@ -1410,7 +1410,7 @@ serve(async (req) => {
 
       // Get worker's own team as fallback, but prefer the teams where they are assigned as responsable
       const teamIds = workers?.filter(w => w.worker_team_id).map(w => w.worker_team_id!) || [];
-      let teamsMap: Record<string, { name: string; display_name: string | null; department_id: string | null }> = {};
+      const teamsMap: Record<string, { name: string; display_name: string | null; department_id: string | null }> = {};
       if (teamIds.length > 0) {
         const { data: teams } = await supabase
           .from('worker_teams')
@@ -1420,7 +1420,7 @@ serve(async (req) => {
       }
 
       const workerIds = workers?.map(w => w.id) || [];
-      let responsableTeamsMap: Record<string, Array<{ id: string; name: string; display_name: string | null; department_id: string | null }>> = {};
+      const responsableTeamsMap: Record<string, Array<{ id: string; name: string; display_name: string | null; department_id: string | null }>> = {};
       if (workerIds.length > 0) {
         const { data: responsableTeams } = await supabase
           .from('worker_teams')
@@ -1442,7 +1442,7 @@ serve(async (req) => {
       }
 
       // Check which workers already have a manager account
-      let managerMap: Record<string, { id: string; email: string | null; password_hash: string | null; is_blocked: boolean }> = {};
+      const managerMap: Record<string, { id: string; email: string | null; password_hash: string | null; is_blocked: boolean }> = {};
       if (workerIds.length > 0) {
         const { data: existingManagers } = await supabase
           .from('managers')
@@ -2890,7 +2890,7 @@ serve(async (req) => {
               .single();
 
             // Get new team info and work group
-            let newTeamName = updatedWorker?.worker_teams?.name || null;
+            const newTeamName = updatedWorker?.worker_teams?.name || null;
             let workGroupName = null;
             let workGroupColor = '#93d600';
 
@@ -4735,7 +4735,7 @@ serve(async (req) => {
         .select('vacation_request_id')
         .eq('date', today);
 
-      let workerIdsFromApprovedRequests: string[] = [];
+      const workerIdsFromApprovedRequests: string[] = [];
       if (approvedRequestDates && approvedRequestDates.length > 0) {
         const requestIds = approvedRequestDates.map(d => d.vacation_request_id);
         
@@ -5931,9 +5931,9 @@ serve(async (req) => {
         .limit(1)
         .single();
 
-      let futureVacationDaysA: string[] = [];
-      let futureVacationDaysB: string[] = [];
-      let generalVacationDays: string[] = [];
+      const futureVacationDaysA: string[] = [];
+      const futureVacationDaysB: string[] = [];
+      const generalVacationDays: string[] = [];
 
       if (annualCalendar?.id) {
         // Fetch all future vacation days (group + general) in one query
@@ -9416,7 +9416,7 @@ ${exchange.accepted_by_b_at ? `<p class="firma-meta">${escH(firmaBDate)}</p>` : 
           .delete()
           .eq('modification_id', modification.id);
 
-        let applyErrors: string[] = [];
+        const applyErrors: string[] = [];
 
         // Process removed_group_days - insert as unlocked_by_admin
         const removedDaysArray = modification.removed_group_days || [];
@@ -9879,7 +9879,7 @@ ${exchange.accepted_by_b_at ? `<p class="firma-meta">${escH(firmaBDate)}</p>` : 
         console.error('Error clearing existing personal days:', deleteError);
       }
 
-      let applyErrors: string[] = [];
+      const applyErrors: string[] = [];
 
       // 1. Change work group if specified
       if (modification.new_group_id && modification.new_group_id !== worker.work_group_id) {
@@ -10095,7 +10095,7 @@ ${exchange.accepted_by_b_at ? `<p class="firma-meta">${escH(firmaBDate)}</p>` : 
 
       let repaired = 0;
       let skipped = 0;
-      let errors: string[] = [];
+      const errors: string[] = [];
 
       for (const mod of signedMods || []) {
         const worker = (mod as any).workers;
@@ -11804,7 +11804,7 @@ ${mod.signed_at ? `<p class="firma-meta">${escHtml(firmaFecha)}</p>` : ''}
       const requestIds = (approvedRequests || []).map(r => r.id);
       
       // Get all approved dates with half_day info
-      let approvedDatesByWorkerNumber: Record<string, number> = {};
+      const approvedDatesByWorkerNumber: Record<string, number> = {};
       
       if (requestIds.length > 0) {
         const { data: approvedDates } = await supabase
@@ -13505,7 +13505,7 @@ ${mod.signed_at ? `<p class="firma-meta">${escHtml(firmaFecha)}</p>` : ''}
          .filter((d: any) => d.day_type === 'festivo' && d.legend)
          .sort((a: any, b: any) => a.date.localeCompare(b.date));
 
-       let festivosHtml = festivos.map((d: any) => {
+       const festivosHtml = festivos.map((d: any) => {
          const dateObj = new Date(d.date + 'T12:00:00');
          const dayNum = dateObj.getDate();
          const monthNum = dateObj.getMonth() + 1;
@@ -13513,7 +13513,7 @@ ${mod.signed_at ? `<p class="firma-meta">${escHtml(firmaFecha)}</p>` : ''}
        }).join('');
 
        // Build base legend
-       let baseLegendHtml = `
+       const baseLegendHtml = `
          <div class="legend-item"><span class="legend-circle" style="background:#93d600"></span><span>Vacaciones Generales</span></div>
          <div class="legend-item"><span class="legend-circle" style="background:#dc2626"></span><span>Festivo</span></div>
          <div class="legend-item"><span class="legend-circle" style="background:${lightMode ? '#d4d4d4' : '#333'}"></span><span>Fin de semana</span></div>
@@ -13794,7 +13794,7 @@ ${bottomPanels}
           .eq('week', isoWeek);
 
         // Fallback to department_shifts if no weekly configs
-        let shiftMap: Record<string, { name: string; is_rest: boolean }> = {};
+        const shiftMap: Record<string, { name: string; is_rest: boolean }> = {};
         if (shiftConfigs && shiftConfigs.length > 0) {
           for (const sc of shiftConfigs) {
             shiftMap[sc.shift_key] = { name: sc.name, is_rest: sc.is_rest };
@@ -13817,7 +13817,7 @@ ${bottomPanels}
           .eq('year', targetDate.getUTCFullYear())
           .maybeSingle();
 
-        let vacationGroupIds = new Set<string>();
+        const vacationGroupIds = new Set<string>();
         if (calendarData?.id) {
           const { data: vacDays } = await supabase
             .from('annual_calendar_days')
@@ -13849,7 +13849,7 @@ ${bottomPanels}
           .select('id')
           .eq('department_id', deptId);
         const wgIds = (wgData || []).map(w => w.id);
-        let groupTeamMap: Record<string, string[]> = {};
+        const groupTeamMap: Record<string, string[]> = {};
         if (wgIds.length > 0) {
           const { data: gtData } = await supabase
             .from('work_group_teams')

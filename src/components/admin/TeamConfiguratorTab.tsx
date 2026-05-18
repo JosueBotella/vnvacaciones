@@ -454,7 +454,7 @@ export default function TeamConfiguratorTab({
     const workerName = responsableWorkerId ? getWorkerName(responsableWorkerId) : "ninguno";
     const teamIdSet = new Set(teamIds);
     
-    let newResponsables = snapshot.team_responsables.map(tr =>
+    const newResponsables = snapshot.team_responsables.map(tr =>
       teamIdSet.has(tr.team_id) ? { ...tr, responsable_worker_id: responsableWorkerId } : tr
     );
     // Add entries for teams not yet in the list
@@ -491,7 +491,7 @@ export default function TeamConfiguratorTab({
       : snapshot.work_group_teams;
     
     // Inherit group responsable if adding to an existing group
-    let newResponsables = [...snapshot.team_responsables];
+    const newResponsables = [...snapshot.team_responsables];
     if (groupDisplayName) {
       const siblingTeam = snapshot.teams.find(t => t.display_name === groupDisplayName);
       if (siblingTeam) {

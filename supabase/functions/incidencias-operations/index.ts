@@ -180,7 +180,7 @@ function calculateSuspensionDates(fechaInicio: string, dias: number): string[] {
   const start = new Date(fechaInicio);
   if (Number.isNaN(start.getTime())) return [];
 
-  let current = new Date(start);
+  const current = new Date(start);
   for (let i = 0; i < dias; i++) {
     dates.push(current.toISOString().slice(0, 10));
     if (i < dias - 1) {
@@ -3484,7 +3484,7 @@ serve(async (req) => {
         }
 
         // ── Real-time escalation evaluation (synchronous) ──
-        let autoEscalado: any[] = [];
+        const autoEscalado: any[] = [];
         let autoPuntosForced = false;
         if (accionPropuesta === 'solo_incidencia' || !accionPropuesta) {
           try {
@@ -3798,7 +3798,7 @@ serve(async (req) => {
         if (listErr) return errorResponse('Failed to list incidencias: ' + listErr.message);
 
         const recordIds = (records || []).map(r => r.id);
-        let recordWorkers: Record<string, Array<{ worker_name: string; worker_number: string | null; worker_id: string }>> = {};
+        const recordWorkers: Record<string, Array<{ worker_name: string; worker_number: string | null; worker_id: string }>> = {};
         if (recordIds.length > 0) {
           const { data: rw } = await supabase
             .from('incidencias_record_workers')
@@ -3839,7 +3839,7 @@ serve(async (req) => {
         }
 
         // Enrich with linked proposal info (id + estado)
-        let proposalInfoByRecordId: Record<string, { proposal_id: string; proposal_estado: string }> = {};
+        const proposalInfoByRecordId: Record<string, { proposal_id: string; proposal_estado: string }> = {};
         const filteredRecordIds = filteredRecords.map(r => r.id);
         if (filteredRecordIds.length > 0) {
           const { data: linkedProps } = await supabase
@@ -3856,7 +3856,7 @@ serve(async (req) => {
         }
 
         // Enrich with legal document info (PDF + tipo + gravedad_final)
-        let legalDocByRecordId: Record<string, { id: string; pdf_url: string | null; draft_pdf_url: string | null; scanned_signed_pdf_url: string | null; tipo: string | null; gravedad_final: string | null; suspension: boolean; dias_suspension: number | null; firmado: boolean; anulado: boolean }> = {};
+        const legalDocByRecordId: Record<string, { id: string; pdf_url: string | null; draft_pdf_url: string | null; scanned_signed_pdf_url: string | null; tipo: string | null; gravedad_final: string | null; suspension: boolean; dias_suspension: number | null; firmado: boolean; anulado: boolean }> = {};
         const proposalIds = Object.values(proposalInfoByRecordId).map(p => p.proposal_id);
         if (proposalIds.length > 0) {
           const { data: legalDocs } = await supabase
@@ -4022,7 +4022,7 @@ serve(async (req) => {
         }
 
         // Propuestas stats
-        let propuestasStats = { pendientes: 0, aprobadas: 0, enviadas: 0, rechazadas: 0 };
+        const propuestasStats = { pendientes: 0, aprobadas: 0, enviadas: 0, rechazadas: 0 };
         {
           const { data: allProp } = await supabase.from('incidencias_propuestas_rrhh').select('estado');
           for (const p of (allProp || [])) {
@@ -4116,7 +4116,7 @@ serve(async (req) => {
           if (deptIds && deptIds.length > 0) q = q.in('department_id', deptIds);
           const { data } = await q;
           const ids = (data || []).map(r => r.id);
-          let rwMap: Record<string, Array<{ worker_name: string; worker_number: string | null }>> = {};
+          const rwMap: Record<string, Array<{ worker_name: string; worker_number: string | null }>> = {};
           if (ids.length > 0) {
             const { data: rw } = await supabase
               .from('incidencias_record_workers')
@@ -4131,7 +4131,7 @@ serve(async (req) => {
         }
 
         // By gravedad
-        let byGravedad = { leve: 0, grave: 0, muy_grave: 0 };
+        const byGravedad = { leve: 0, grave: 0, muy_grave: 0 };
         {
           let q = supabase.from('incidencias_records').select('category_id').is('deleted_at', null).eq('worker_pending', false);
           if (deptIds && deptIds.length > 0) q = q.in('department_id', deptIds);
@@ -4180,7 +4180,7 @@ serve(async (req) => {
         }
 
         // byTipo: distribution by accion_propuesta
-        let byTipo = { solo_incidencia: 0, amonestacion_escrita: 0, sancion: 0 };
+        const byTipo = { solo_incidencia: 0, amonestacion_escrita: 0, sancion: 0 };
         {
           let q = supabase.from('incidencias_records').select('id, accion_propuesta').is('deleted_at', null).eq('worker_pending', false);
           if (deptIds && deptIds.length > 0) q = q.in('department_id', deptIds);
@@ -4300,7 +4300,7 @@ serve(async (req) => {
         // Build detailed history for ALL workers in parallel (not sequentially)
         const workerIds = recWorkers.map(w => w.worker_id);
         let maxHistory = 0;
-        let historialDetallado: Array<{ fecha: string; descripcion: string; gravedad: string }> = [];
+        const historialDetallado: Array<{ fecha: string; descripcion: string; gravedad: string }> = [];
         let riesgoReincidencia = 0;
         let allWorkerRecLinks: any[] = [];
         let prevRecords: any[] = [];
@@ -4608,7 +4608,7 @@ serve(async (req) => {
         if (propErr) return errorResponse('Failed to list propuestas');
 
         const recordIds = [...new Set((propuestas || []).map(p => p.record_id).filter(Boolean))];
-        let recordsMap: Record<string, any> = {};
+        const recordsMap: Record<string, any> = {};
         if (recordIds.length > 0) {
           const { data: recs } = await supabase
             .from('incidencias_records')
@@ -4617,7 +4617,7 @@ serve(async (req) => {
           for (const r of (recs || [])) recordsMap[r.id] = r;
         }
 
-        let workersMap: Record<string, Array<{ worker_id: string; worker_name: string; worker_number: string | null }>> = {};
+        const workersMap: Record<string, Array<{ worker_id: string; worker_name: string; worker_number: string | null }>> = {};
         if (recordIds.length > 0) {
           const { data: rw } = await supabase
             .from('incidencias_record_workers')
@@ -4630,7 +4630,7 @@ serve(async (req) => {
         }
 
         const deptIdSet = [...new Set((propuestas || []).map(p => p.department_id))];
-        let deptNamesMap: Record<string, string> = {};
+        const deptNamesMap: Record<string, string> = {};
         if (deptIdSet.length > 0) {
           const { data: depts } = await supabase
             .from('incidencias_departments')
@@ -5042,7 +5042,7 @@ serve(async (req) => {
 
         // Fetch related records for context
         const recordIds = Array.from(new Set((archPropuestas || []).map((p: any) => p.record_id).filter(Boolean)));
-        let recordsById: Record<string, any> = {};
+        const recordsById: Record<string, any> = {};
         if (recordIds.length > 0) {
           const { data: recs } = await supabase
             .from('incidencias_records')
@@ -6580,7 +6580,7 @@ serve(async (req) => {
             aiModification.dias_suspension_ia = analysis.dias_suspension_recomendados;
             const startDate = rec?.propuesta_fecha_inicio ? new Date(rec.propuesta_fecha_inicio) : (freshProp.fecha_inicio ? new Date(freshProp.fecha_inicio) : new Date());
             const fechas: string[] = [];
-            let current = new Date(startDate);
+            const current = new Date(startDate);
             // Natural days (weekends included per Art. 5 Código Civil)
             for (let i = 0; i < analysis.dias_suspension_recomendados; i++) {
               fechas.push(current.toISOString().slice(0, 10));
@@ -7537,7 +7537,7 @@ Genera entre 3 y 5 sugerencias NUEVAS y ÚTILES que no estén ya cubiertas. Prio
 
           // 2. Get record workers
           const recordIds = allRecords.map(r => r.id);
-          let workerData: any[] = [];
+          const workerData: any[] = [];
           if (recordIds.length > 0) {
             // Batch in chunks of 500 to avoid query limits
             for (let i = 0; i < recordIds.length; i += 500) {
@@ -7572,7 +7572,7 @@ Genera entre 3 y 5 sugerencias NUEVAS y ÚTILES que no estén ya cubiertas. Prio
 
           // 4. Get categories for gravity
           const catIds = [...new Set(filteredRecords.map(r => r.category_id).filter(Boolean))];
-          let catMap: Record<string, { name: string; gravedad: string }> = {};
+          const catMap: Record<string, { name: string; gravedad: string }> = {};
           if (catIds.length > 0) {
             const { data: cats } = await supabase
               .from('incidencias_categories')
@@ -10109,7 +10109,7 @@ Fecha límite de presentación: <strong>${fechaLimiteStr}</strong>
 
         // Enrich with worker names from record_workers
         const recordIds = [...new Set((lossRows || []).map((l: any) => l.record_id).filter(Boolean))];
-        let workerMap: Record<string, { name: string; number: string }> = {};
+        const workerMap: Record<string, { name: string; number: string }> = {};
         if (recordIds.length > 0) {
           const { data: rwData } = await supabase
             .from('incidencias_record_workers')
@@ -10657,7 +10657,7 @@ Fecha límite de presentación: <strong>${fechaLimiteStr}</strong>
         
         // Get legal documents for firma tasks
         const ftDocIds = (firmaTasks || []).map((t: any) => t.legal_document_id).filter(Boolean);
-        let ftDocsMap: Record<string, any> = {};
+        const ftDocsMap: Record<string, any> = {};
         if (ftDocIds.length > 0) {
           const { data: ftDocs } = await supabase
             .from('incidencias_legal_documents')
@@ -10670,7 +10670,7 @@ Fecha límite de presentación: <strong>${fechaLimiteStr}</strong>
 
         // Get propuesta info for department
         const ftPropIds = Object.values(ftDocsMap).map((d: any) => d.propuesta_id).filter(Boolean);
-        let ftPropMap: Record<string, any> = {};
+        const ftPropMap: Record<string, any> = {};
         if (ftPropIds.length > 0) {
           const { data: ftProps } = await supabase
             .from('incidencias_propuestas_rrhh')
@@ -10683,7 +10683,7 @@ Fecha límite de presentación: <strong>${fechaLimiteStr}</strong>
 
         // Get worker numbers from record_workers
         const ftRecordIds = [...new Set(Object.values(ftPropMap).map((p: any) => p.record_id).filter(Boolean))];
-        let ftWorkerNumberMap: Record<string, string> = {}; // record_id -> worker_number
+        const ftWorkerNumberMap: Record<string, string> = {}; // record_id -> worker_number
         if (ftRecordIds.length > 0) {
           const { data: ftRecordWorkers } = await supabase
             .from('incidencias_record_workers')
@@ -10695,7 +10695,7 @@ Fecha límite de presentación: <strong>${fechaLimiteStr}</strong>
         }
 
         // Get incident date (fecha del hecho) from records — used for prescription countdown
-        let ftRecordFechaMap: Record<string, string> = {}; // record_id -> fecha del hecho
+        const ftRecordFechaMap: Record<string, string> = {}; // record_id -> fecha del hecho
         if (ftRecordIds.length > 0) {
           const { data: ftRecords } = await supabase
             .from('incidencias_records')
@@ -10708,7 +10708,7 @@ Fecha límite de presentación: <strong>${fechaLimiteStr}</strong>
 
         // Get department names
         const ftDeptIds = [...new Set(Object.values(ftPropMap).map((p: any) => p.department_id).filter(Boolean))];
-        let ftDeptMap: Record<string, string> = {};
+        const ftDeptMap: Record<string, string> = {};
         if (ftDeptIds.length > 0) {
           const { data: ftDeptsData } = await supabase
             .from('incidencias_departments')

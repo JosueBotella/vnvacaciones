@@ -129,7 +129,7 @@ export function EvidenceCropDialog({
       }
 
       let finalUrls: string[] = result.admin_pruebas_urls;
-      let finalDisabled: string[] | undefined = Array.isArray(result.disabled_manager_pruebas)
+      const finalDisabled: string[] | undefined = Array.isArray(result.disabled_manager_pruebas)
         ? result.disabled_manager_pruebas
         : undefined;
 

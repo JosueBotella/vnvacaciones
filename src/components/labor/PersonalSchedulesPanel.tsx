@@ -23,7 +23,7 @@ import { WorkerSearchSelect } from "@/components/WorkerSearchSelect";
    if (!value || value.trim() === "") return null;
    
    // Remove non-digit and colon chars
-   let cleaned = value.replace(/[^\d:]/g, "");
+   const cleaned = value.replace(/[^\d:]/g, "");
    
    // If already in HH:MM format, just pad if needed
    if (cleaned.includes(":")) {

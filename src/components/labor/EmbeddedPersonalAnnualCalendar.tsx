@@ -229,7 +229,7 @@ export const EmbeddedPersonalAnnualCalendar = ({
 
               let bgColor = "";
               let textColor = "text-foreground";
-              let style: React.CSSProperties = {};
+              const style: React.CSSProperties = {};
 
               // Priority: Festivo > Personal vacation > Weekend
               if (dayInfo?.day_type === 'festivo') {

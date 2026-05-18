@@ -20,9 +20,9 @@ export class AppErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Keep console logging for production debugging
-    // eslint-disable-next-line no-console
+     
     console.error("App crashed:", error);
-    // eslint-disable-next-line no-console
+     
     console.error("Component stack:", errorInfo.componentStack);
   }
 

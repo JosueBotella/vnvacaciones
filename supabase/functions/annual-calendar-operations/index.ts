@@ -1167,7 +1167,7 @@ const handler = async (req: Request): Promise<Response> => {
         }
 
         // Build base legend (standard day types)
-        let baseLegendHtml = `
+        const baseLegendHtml = `
           <div class="legend-item"><span class="legend-circle" style="background:#93d600"></span><span>Vacaciones Generales</span></div>
           <div class="legend-item"><span class="legend-circle" style="background:#dc2626"></span><span>Festivo</span></div>
           <div class="legend-item"><span class="legend-circle" style="background:${lightMode ? '#d4d4d4' : '#333'}"></span><span>Fin de semana</span></div>

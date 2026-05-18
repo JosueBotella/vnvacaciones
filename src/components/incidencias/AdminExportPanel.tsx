@@ -147,7 +147,7 @@ export function AdminExportPanel() {
       const rank = data.ranking || {};
       const workerName = [w?.nombre, w?.apellidos].filter(Boolean).join(' ');
 
-      let recordsHtml = records.map((r: any) => `<tr>
+      const recordsHtml = records.map((r: any) => `<tr>
         <td>${new Date(r.fecha).toLocaleDateString('es-ES')}</td>
         <td>${r.incidencias_categories?.name || '—'}</td>
         <td>${gravedadBadge(r.incidencias_categories?.gravedad || 'leve')}</td>

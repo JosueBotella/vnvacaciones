@@ -1936,7 +1936,7 @@ export const LaborSchedulesTab = () => {
 
     // Generate future weeks starting from current week + 1
     const futureWeeks: { week: number; year: number }[] = [];
-    let baseDate = getIsoWeekStart(year, week);
+    const baseDate = getIsoWeekStart(year, week);
     
     for (let i = 1; i <= numWeeks; i++) {
       const nextDate = new Date(baseDate);

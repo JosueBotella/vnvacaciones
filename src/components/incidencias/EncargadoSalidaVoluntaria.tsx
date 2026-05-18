@@ -58,7 +58,7 @@ export function EncargadoSalidaVoluntaria({ userContext }: Props) {
         const deptRes = await supabase.functions.invoke("incidencias-operations", {
           body: { action: "getMyDepartments", sessionToken, targetManagerId: userContext.managerId },
         });
-        let depts: Department[] = deptRes.data?.departments || [];
+        const depts: Department[] = deptRes.data?.departments || [];
 
         // Also try all departments (for responsables)
         const allDeptRes = await supabase.functions.invoke("incidencias-operations", {

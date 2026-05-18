@@ -306,7 +306,7 @@ export const ScheduleRulesPanel = ({
     const weeks: { week: number; year: number; range: { start: Date; end: Date } }[] = [];
     
     // Start from the selected/anchor week and generate 4 consecutive weeks
-    let startDate = isoWeekStart(anchorYear, anchorWeek);
+    const startDate = isoWeekStart(anchorYear, anchorWeek);
     
     for (let i = 0; i < 4; i++) {
       const weekDate = new Date(startDate);

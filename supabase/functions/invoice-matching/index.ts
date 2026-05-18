@@ -213,7 +213,7 @@ IMPORTANTE:
 
   const result = await response.json();
   const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
-  let cleaned = text.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/, "");
+  const cleaned = text.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/, "");
 
   try {
     const products = JSON.parse(cleaned);

@@ -157,7 +157,7 @@ export function EncargadoNuevaIncidencia({ userContext, onComplete, prefill }: P
         const deptRes = await supabase.functions.invoke("incidencias-operations", {
           body: { action: "getMyDepartments", sessionToken, targetManagerId: userContext.managerId },
         });
-        let depts = deptRes.data?.departments || [];
+        const depts = deptRes.data?.departments || [];
         setDepartments(depts);
 
         // Fetch ALL departments so encargados/responsables can create incidents for any worker

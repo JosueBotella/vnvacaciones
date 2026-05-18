@@ -58,7 +58,7 @@ serve(async (req) => {
 
         // Attach current version content for each
         const ids = (prompts || []).map((p: any) => p.current_version_id).filter(Boolean);
-        let versionsMap: Record<string, any> = {};
+        const versionsMap: Record<string, any> = {};
         if (ids.length) {
           const { data: vers } = await supabase
             .from("incidencias_ai_prompt_versions")

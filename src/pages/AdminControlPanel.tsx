@@ -159,7 +159,7 @@ export default function AdminControlPanel() {
       if (!error && data) {
         // Fetch department assignments for managers
         const sessionToken = localStorage.getItem("manager_session_token") || sessionStorage.getItem("manager_session_token");
-        let deptAssignments: Record<string, string[]> = {};
+        const deptAssignments: Record<string, string[]> = {};
         
         if (sessionToken) {
           // Get assignments
