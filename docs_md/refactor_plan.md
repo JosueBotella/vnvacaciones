@@ -1,5 +1,5 @@
 # Plan de Refactor — vnvacaciones / VerdNatura HRMS
-> **Versión:** 3.0 (EF split integrado por módulo) | **Última actualización:** 2026-05-18
+> **Versión:** 3.1 (Fase 0 completada, M-AUTH.1 auditado) | **Última actualización:** 2026-05-18
 > **Metodología:** Micro-compromisos atómicos — un commit por tarea, confirmación antes de cualquier cambio
 
 ---
@@ -124,37 +124,37 @@ supabase/functions/admin-<dominio>/
 
 > Sin esta fase, el resto construye sobre arena. La más corta pero la más crítica.
 
-### F0.1 — Eliminar artefactos Lovable
-- [ ] Auditar `vite.config.ts`: eliminar plugin `lovable-tagger`
-- [ ] Eliminar `lovable-tagger` de devDependencies en `package.json`
-- [ ] Búsqueda global de comentarios autogenerados para eliminar
-- [ ] **Confirmar con Josué antes de ejecutar**
+### ✅ F0.1 — Eliminar artefactos Lovable
+- [x] Eliminado plugin `lovable-tagger` de `vite.config.ts` y `package.json`
+- [x] Corregido bug silencioso en array de plugins (`mode === "development"` residual)
+- [x] Eliminado comentario autogenerado de `client.ts`
 
-### F0.2 — Singleton cliente Supabase
-- [ ] Auditar si ya existe `src/lib/supabase.ts` o equivalente
-- [ ] Verificar que NO usa `createClientComponentClient` (helper de auth nativa)
-- [ ] Si no existe o está duplicado: proponer el singleton → confirmar antes de escribir
+### ✅ F0.2 — Singleton cliente Supabase
+- [x] Singleton ya existía en `src/integrations/supabase/client.ts` — correcto, sin duplicados
+- [x] Corregida inconsistencia: `.env` usaba `VITE_SUPABASE_ANON_KEY`, `client.ts` leía `VITE_SUPABASE_PUBLISHABLE_KEY`
+- [x] Unificado a `VITE_SUPABASE_PUBLISHABLE_KEY` en ambos ficheros
 
-### F0.3 — Tipos generados actualizados
-- [ ] Verificar que `src/integrations/supabase/types.ts` (7.221 líneas) está al día
-- [ ] Añadir script `"types:gen"` en `package.json`
-- [ ] **Confirmar antes de añadir**
+### ✅ F0.3 — Tipos generados actualizados
+- [x] `src/integrations/supabase/types.ts` (7.221 líneas) verificado — generado con CLI reciente
+- [x] Añadido script `"types:gen"` en `package.json`
+- [x] Añadido script `"lint:fix"` en `package.json`
 
-### F0.4 — Configuración de linting
-- [ ] Auditar `eslint.config.js`: reglas `no-unused-vars`, `no-explicit-any`, `react-hooks/rules-of-hooks`
-- [ ] Ejecutar `npm run lint` → documentar errores sin corregir
-- [ ] Proponer script `"lint:fix"` → **confirmar antes de añadir**
+### ✅ F0.4 — Configuración de linting
+- [x] Activada regla `no-unused-vars` (estaba en `"off"`) → modo `warn` con patrón `^_`
+- [x] Añadida regla `no-explicit-any` explícita en modo `warn`
+- [x] Auditado: 1.939 problemas iniciales → 87 errores reales + ~2.300 warnings progresivos
+- [x] Ejecutado `lint:fix` → 54 casos `prefer-const` corregidos automáticamente
 
-### F0.5 — Instalar Vitest
-- [ ] Proponer: `npm install -D vitest @testing-library/react @testing-library/user-event jsdom`
-- [ ] Proponer `vitest.config.ts` básico
-- [ ] **Confirmar con Josué antes de instalar**
+### ✅ F0.5 — Instalar Vitest
+- [x] Instalado: `vitest@4.1.6`, `@testing-library/react@16.3.2`, `@testing-library/user-event@14.6.1`, `jsdom`, `@testing-library/jest-dom`
+- [x] Creado `vitest.config.ts` con entorno `jsdom` y alias `@/`
+- [x] Creado `src/test/setup.ts`
+- [x] Verificado: `npm run test:run` → exit code 0 ✓
 
-### F0.6 — Scaffolding de `_shared` para Edge Functions
-- [ ] Crear `supabase/functions/_shared/cors.ts` (headers CORS reutilizables)
-- [ ] Crear `supabase/functions/_shared/auth.ts` (verificación de token de sesión)
-- [ ] Crear `supabase/functions/_shared/response.ts` (helpers `ok()`, `error()` tipados)
-- [ ] **Confirmar contenido antes de crear**
+### ✅ F0.6 — Scaffolding de `_shared` para Edge Functions
+- [x] Creado `supabase/functions/_shared/cors.ts`
+- [x] Creado `supabase/functions/_shared/response.ts` (ok, error, unauthorized, notFound, serverError)
+- [x] Creado `supabase/functions/_shared/auth.ts` (getAuthenticatedClient, getServiceClient)
 > _Equivalente C#: una clase estática `ApiResponse` + middleware de auth. Aquí son módulos Deno importados._
 
 ---
@@ -164,23 +164,38 @@ supabase/functions/admin-<dominio>/
 **Archivos afectados:** Estado de sesión disperso por páginas, EF `manager-auth` (1.130) y `worker-auth` (569)
 **EF implicadas:** Ninguna nueva — las auth EF se auditan pero NO se refactorizan salvo bug explícito.
 
-### M-AUTH.1 — Auditoría del flujo actual
-- [ ] Leer cómo se gestiona la sesión hoy: ¿localStorage? ¿context? ¿estado local en páginas?
-- [ ] Mapear qué páginas leen el usuario actual y cómo
-- [ ] **Solo lectura — reportar hallazgos antes de proponer cambios**
+### ✅ M-AUTH.1 — Auditoría del flujo actual
+**Hallazgo: el sistema tiene 3 mecanismos de auth distintos, no 2.**
 
-### M-AUTH.2 — AuthContext custom
-- [ ] Proponer diseño de `src/modules/auth/context/AuthContext.tsx`:
-  - Estado: `{ user, role: 'manager' | 'worker' | null, isLoading }`
-  - Funciones: `loginManager()`, `loginWorker()`, `logout()`
-  - Llama a `supabase.functions.invoke('manager-auth' | 'worker-auth')`, NO a `auth.signIn()`
-- [ ] **Confirmar diseño antes de escribir una sola línea**
-- [ ] Crear `src/modules/auth/hooks/useAuth.ts`
+**1. Auth de Manager** → `src/hooks/useManagerAuth.tsx`
+- ✅ Ya implementado con Context + Provider + Hook — arquitectura correcta
+- ✅ Usa `supabase.functions.invoke('manager-auth')`, nunca `auth.signIn()`
+- ✅ Sesión en localStorage/sessionStorage con token propio
+- ✅ Validación periódica cada 5 min + timeout de inactividad 2h
+- Acción: mover a `modules/auth/` sin reescribir
 
-### M-AUTH.3 — PrivateRoute y redirecciones
-- [ ] Proponer `PrivateRoute` limpio que lee de `useAuth()`
-- [ ] **Confirmar antes de escribir**
-- [ ] Verificar: login manager ✓ | login worker ✓ | logout ✓ | refresh mantiene sesión ✓
+**2. Auth de Worker** → dispersa en múltiples páginas de login
+- ❌ Sin hook centralizado — lógica inline en cada página
+- ⚠️ `WorkerCalendarLogin.tsx` usa `supabase.auth.getSession()` — mezcla auth nativa
+- Páginas afectadas: `WorkerCalendarLogin`, `WorkerScheduleLogin`, `JustificantesForm`, `WorkerEntry`
+- Pendiente aclarar: ¿`WorkerCalendarLogin` usa Supabase nativo intencionalmente?
+
+**3. Auth de Admin** → `src/pages/AdminLogin.tsx`
+- Usa `supabase.from('user_roles')` — tercer sistema independiente
+- Pendiente aclarar: ¿es acceso técnico interno o lo usan usuarios de negocio?
+
+### M-AUTH.2 — Mover useManagerAuth a módulo
+- [ ] Mover `src/hooks/useManagerAuth.tsx` → `src/modules/auth/hooks/useManagerAuth.tsx`
+- [ ] Actualizar todos los imports (búsqueda global) → confirmar antes de ejecutar
+- [ ] **⚠️ Pendiente respuesta sobre AdminLogin y WorkerCalendarLogin antes de continuar**
+
+### M-AUTH.3 — Centralizar auth de Worker
+- [ ] ⏸️ Bloqueado hasta aclarar si `WorkerCalendarLogin` usa Supabase nativo intencionalmente
+- [ ] Crear hook `useWorkerAuth` centralizado una vez aclarado el flujo
+
+### M-AUTH.4 — PrivateRoute por rol
+- [ ] Proponer `PrivateRoute` que lee de `useManagerAuth()` / `useWorkerAuth()`
+- [ ] Verificar: login manager ✓ | login worker ✓ | logout ✓ | refresh ✓
 
 ---
 
@@ -437,19 +452,20 @@ supabase/functions/admin-<dominio>/
 ### Fase 0 — Fundación
 | Tarea | Estado | Rama | Fecha |
 |-------|--------|------|-------|
-| F0.1 Eliminar artefactos Lovable | ⬜ Pendiente | — | — |
-| F0.2 Singleton Supabase | ⬜ Pendiente | — | — |
-| F0.3 Tipos generados | ⬜ Pendiente | — | — |
-| F0.4 Linting | ⬜ Pendiente | — | — |
-| F0.5 Vitest | ⬜ Pendiente | — | — |
-| F0.6 EF _shared helpers | ⬜ Pendiente | — | — |
+| F0.1 Eliminar artefactos Lovable | ✅ Completado | refactor/f0-foundation | 2026-05-18 |
+| F0.2 Singleton Supabase | ✅ Completado | refactor/f0-foundation | 2026-05-18 |
+| F0.3 Tipos generados | ✅ Completado | refactor/f0-foundation | 2026-05-18 |
+| F0.4 Linting | ✅ Completado | refactor/f0-foundation | 2026-05-18 |
+| F0.5 Vitest | ✅ Completado | refactor/f0-foundation | 2026-05-18 |
+| F0.6 EF _shared helpers | ✅ Completado | refactor/f0-foundation | 2026-05-18 |
 
 ### Fase 1 — Auth
 | Tarea | Estado | Rama | Fecha |
 |-------|--------|------|-------|
-| M-AUTH.1 Auditoría flujo auth | ⬜ Pendiente | — | — |
-| M-AUTH.2 AuthContext custom | ⬜ Pendiente | — | — |
-| M-AUTH.3 PrivateRoute | ⬜ Pendiente | — | — |
+| M-AUTH.1 Auditoría flujo auth | ✅ Completado | refactor/f1-auth | 2026-05-18 |
+| M-AUTH.2 Mover useManagerAuth a módulo | 🔄 En progreso | refactor/f1-auth | — |
+| M-AUTH.3 Centralizar auth Worker | ⏸️ Bloqueado | — | — |
+| M-AUTH.4 PrivateRoute por rol | ⬜ Pendiente | — | — |
 
 ### Fase 2 — Infraestructura transversal
 | Tarea | Estado | Rama | Fecha |

@@ -56,9 +56,40 @@ Esta fase prepara el terreno para que el resto del trabajo sea seguro y ordenado
 
 ---
 
+#### ✅ Corrección automática de código (F0.4 — lint:fix)
+**Qué se hizo:** Se ejecutó la corrección automática del analizador de código. De los 62 casos mecánicos detectados, 54 se corrigieron solos (variables que podían ser constantes pero estaban declaradas como mutables). Los 8 restantes requieren revisión manual y se abordarán módulo a módulo.
+
+**Por qué importa:** El código está más limpio y semánticamente correcto. Además ahora tenemos visibilidad real de la deuda técnica: 87 errores genuinos y ~2.300 avisos progresivos que irán desapareciendo conforme avance el refactor.
+
+#### ✅ Instalación del framework de tests (F0.5)
+**Qué se hizo:** Se instaló Vitest (el framework de tests estándar para este tipo de proyectos) junto con las librerías necesarias para testear componentes de interfaz. Se creó la configuración base y se verificó que arranca correctamente.
+
+**Por qué importa:** El proyecto tenía **cero tests**. A partir de ahora, cada módulo que se refactorice irá acompañado de tests que garantizan que el comportamiento no cambia. Es la red de seguridad del refactor.
+
+---
+
+#### ✅ Helpers compartidos para funciones de servidor (F0.6)
+**Qué se hizo:** Se creó una carpeta `_shared/` con tres ficheros reutilizables para las 28 funciones de servidor: gestión de CORS (permisos de acceso desde el navegador), helpers de respuesta HTTP (equivalente a Ok/Error/NotFound) y un helper de autenticación (verificación de token).
+
+**Por qué importa:** Antes, cada función de servidor repetía el mismo código de fontanería. Ahora hay un único sitio donde se define ese comportamiento. Si hay un bug o hay que cambiar algo (p.ej. el dominio permitido en CORS para producción), se cambia en un solo fichero y afecta a todas las funciones.
+
+---
+
+## 🎉 Fase 0 completada — Base técnica saneada
+
+La Fase 0 ha dejado el proyecto con una base limpia y preparada para el refactor real:
+- Sin dependencias de Lovable
+- Cliente de base de datos unificado y correctamente configurado
+- Generación automática de tipos de datos
+- Analizador de código activo con visibilidad real de la deuda
+- Framework de tests instalado y listo
+- Código compartido para las funciones de servidor
+
+---
+
 ## En progreso
 
-- **F0.5 — Tests automatizados (Vitest):** Instalación del framework de testing. El proyecto no tiene ningún test actualmente.
+- **Fase 1 — Módulo de autenticación:** Auditar y centralizar el sistema de login (manager y worker) en un contexto compartido accesible desde toda la aplicación.
 
 ---
 
