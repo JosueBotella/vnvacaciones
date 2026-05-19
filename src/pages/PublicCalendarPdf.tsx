@@ -13,7 +13,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { LanguageSelector } from "@/components/LanguageSelector";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 
 type WorkGroup = {
   id: string;

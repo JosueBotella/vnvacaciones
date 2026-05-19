@@ -6,7 +6,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIncidenciasAuth } from "@/modules/control-incidencias/core/useIncidenciasAuth";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { IncidenciasLayout } from "@/components/incidencias/IncidenciasLayout";
 import LoadingScreen from "@/components/LoadingScreen";
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingScreen from "@/components/LoadingScreen";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BalanceListTab } from "@/components/balance/BalanceListTab";

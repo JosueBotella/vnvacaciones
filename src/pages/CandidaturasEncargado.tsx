@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { supabase } from "@/integrations/supabase/client";
 import LoadingScreen from "@/components/LoadingScreen";
 import { Button } from "@/components/ui/button";

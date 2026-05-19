@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Calendar, LogOut, Users, ClipboardList, Clock, Scale, FileSearch } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingScreen from "@/components/LoadingScreen";
 import { ConsultaCalendarsPanel } from "@/components/consulta/ConsultaCalendarsPanel";
 import { ConsultaGroupsPanel } from "@/components/consulta/ConsultaGroupsPanel";

@@ -16,7 +16,7 @@ import {
   ArrowLeft, Send, Save, Loader2, AlertCircle, Clock, FileSignature, Mail, Check, 
   Trash2, Plus, Minus, Info, Calendar as CalendarIcon, ChevronLeft, ChevronRight, Search, Edit2, RefreshCw
 } from "lucide-react";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingScreen from "@/components/LoadingScreen";
 import { format, parseISO, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from "date-fns";
 import { es } from "date-fns/locale";

@@ -14,7 +14,7 @@ import { ManagerProfileDrawer } from "@/components/candidaturas/ManagerProfileDr
 import { ManagerAvatar } from "@/components/candidaturas/ManagerAvatar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingPanel from "@/components/LoadingPanel";
 import { SkeletonWorkerList } from "@/components/SkeletonLoaders";
 import { Checkbox } from "@/components/ui/checkbox";

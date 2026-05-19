@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect, useMemo } from 'react';
-import { useManagerAuth } from '@/hooks/useManagerAuth';
+import { useManagerAuth } from '@/modules/auth/hooks/useManagerAuth';
 import { supabase } from '@/integrations/supabase/client';
 import type { IncidenciasUserContext, IncidenciasRole } from './types';
 import { getPermissions } from './permissions';

@@ -13,7 +13,7 @@ import { ArrowLeft, Save, Settings, CalendarDays, Copy, Wand2, Info, Search, Use
 import { Badge } from "@/components/ui/badge";
 import { es } from "date-fns/locale";
 import { format, eachDayOfInterval, startOfYear, endOfYear, isSaturday, isSunday, getYear } from "date-fns";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { HalfDayCalendar, DaySelection } from "@/components/HalfDayCalendar";
 import LoadingScreen from "@/components/LoadingScreen";
 

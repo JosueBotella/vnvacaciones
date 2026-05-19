@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ManagerAuthProvider } from "@/hooks/useManagerAuth";
+import { ManagerAuthProvider } from "@/modules/auth/hooks/useManagerAuth";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import { AppSettingsProvider } from "@/hooks/useAppSettings";
 import { AppLockScreen } from "@/components/AppLockScreen";

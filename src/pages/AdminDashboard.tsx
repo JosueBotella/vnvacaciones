@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import { es } from "date-fns/locale";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { WorkerHistoryPanel } from "@/components/WorkerHistoryPanel";
 import { GroupJoinRequestsPanel } from "@/components/GroupJoinRequestsPanel";

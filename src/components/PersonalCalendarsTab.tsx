@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Plus, Calendar, Copy, CheckCircle, ExternalLink, Trash2, User, Building2 } from "lucide-react";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { DepartmentSearchSelect } from "@/components/DepartmentSearchSelect";
 
 type PersonalCalendar = {

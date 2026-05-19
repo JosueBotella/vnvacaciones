@@ -18,7 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { z } from "zod";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { PersonalCalendarsTab } from "@/components/PersonalCalendarsTab";
 import LoadingPanel from "@/components/LoadingPanel";
 import { SkeletonDepartmentGrid } from "@/components/SkeletonLoaders";

@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Users, UsersRound, Calendar, Palette } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LoadingScreen from "@/components/LoadingScreen";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 
 
 type WorkGroup = {

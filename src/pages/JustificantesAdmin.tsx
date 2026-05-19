@@ -23,7 +23,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, Loader2, AlertCircle } from "lucide-react";
 import { format, startOfWeek, addDays, addWeeks, subWeeks, getWeek, getYear } from "date-fns";
 import { es } from "date-fns/locale";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 
 type ScheduleCell = {
   type: string;

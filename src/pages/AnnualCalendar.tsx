@@ -42,7 +42,7 @@ import {
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { format, startOfYear, endOfYear, eachDayOfInterval, getMonth, getDay, startOfMonth, endOfMonth, isSameDay, addYears } from "date-fns";
 import { es } from "date-fns/locale";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LoadingScreen from "@/components/LoadingScreen";
 import LoadingPanel from "@/components/LoadingPanel";

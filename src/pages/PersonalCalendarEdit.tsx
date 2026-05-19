@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { HalfDayCalendar, DaySelection } from "@/components/HalfDayCalendar";
 import { toast } from "sonner";
 import { ArrowLeft, Save, Copy, CheckCircle, User, Mail } from "lucide-react";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import LoadingScreen from "@/components/LoadingScreen";

@@ -3,7 +3,7 @@ import { LogOut, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { NotificationsBell } from "./NotificationsBell";
 import type { IncidenciasUserContext } from "@/modules/control-incidencias/core/types";
 

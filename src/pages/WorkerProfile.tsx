@@ -30,7 +30,7 @@ import {
   RefreshCw,
   TrendingUp,
 } from "lucide-react";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LoadingScreen from "@/components/LoadingScreen";
 import { LogoLink } from "@/components/LogoLink";

@@ -20,7 +20,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingPanel from "@/components/LoadingPanel";
 import { SkeletonRequestList } from "@/components/SkeletonLoaders";
 import { motion, AnimatePresence } from "framer-motion";

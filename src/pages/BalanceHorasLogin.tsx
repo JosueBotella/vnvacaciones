@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingScreen from "@/components/LoadingScreen";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Scale, Loader2, LogIn, Mail, Lock, CheckCircle2 } from "lucide-react";

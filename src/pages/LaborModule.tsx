@@ -20,7 +20,7 @@ import { LaborDashboardTab } from "@/components/labor/LaborDashboardTab";
 import { LaborWorkforceTab } from "@/components/labor/LaborWorkforceTab";
 import { PerformanceImportPanel } from "@/components/labor/PerformanceImportPanel";
 import { LaborPerformanceTab } from "@/components/labor/LaborPerformanceTab";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import { cn } from "@/lib/utils";
 import WorkerGroupsAdmin from "@/pages/WorkerGroupsAdmin";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";

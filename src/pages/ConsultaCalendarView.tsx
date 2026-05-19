@@ -9,7 +9,7 @@ import { ArrowLeft, Info } from "lucide-react";
 import { format, eachDayOfInterval, getMonth, getDay, startOfMonth, endOfMonth } from "date-fns";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LogoLink } from "@/components/LogoLink";
-import { useManagerAuth } from "@/hooks/useManagerAuth";
+import { useManagerAuth } from "@/modules/auth/hooks/useManagerAuth";
 import LoadingScreen from "@/components/LoadingScreen";
 
 type Department = {
